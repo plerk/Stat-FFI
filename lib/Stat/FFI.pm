@@ -18,8 +18,7 @@ attach_function [ 'stat_new' => '_new' ], [], _ptr;
 
 sub new
 {
-  my $ptr = _new();
-  bless \$ptr;
+  bless \_new();
 }
 
 attach_function [ 'stat_st_dev' => 'st_dev' ], [ _ptr ], _dev_t;
