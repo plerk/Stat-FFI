@@ -10,6 +10,8 @@ use FFI::Util qw( _dev_t locate_module_share_lib );
 # VERSION
 
 ffi_lib do {
+  # fetch location of Stat/FFI.so created 
+  # by Module::Build::FFI at install
   my $file = locate_module_share_lib();
   \$file;
 };
