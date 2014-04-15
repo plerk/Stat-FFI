@@ -14,13 +14,7 @@ ffi_lib do {
   \$file;
 };
 
-attach_function [ 'stat_new' => '_new' ], [], _ptr;
-
-sub new
-{
-  bless \_new();
-}
-
+attach_function [ 'stat_new' => 'new' ], [], _ptr, sub { bless \(shift->()) };
 attach_function [ 'stat_st_dev' => 'st_dev' ], [ _ptr ], _dev_t;
 attach_function [ 'stat_stat' => 'stat' ], [ _ptr, _str ], _int;
 attach_function [ 'stat_delete' => 'DESTROY' ], [ _ptr ], _void;
