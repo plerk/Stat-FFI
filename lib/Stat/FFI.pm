@@ -3,22 +3,31 @@ package Stat::FFI;
 use strict;
 use warnings;
 use base qw( FFI::Raw::Ptr );
-use FFI::Sweet;
-use FFI::Util qw( _dev_t locate_module_share_lib );
+use FFI::Platypus::Declare;
+use FFI::Util qw( locate_module_share_lib );
 
 # ABSTRACT: FFI interface to stat function
 # VERSION
 
-ffi_lib do {
+lib do {
   # fetch location of Stat/FFI.so created 
   # by Module::Build::FFI at install
   my $file = locate_module_share_lib();
-  \$file;
+  $file;
 };
 
-attach_function [ 'stat_new' => 'new' ], [], _ptr, sub { bless \(shift->()) };
-attach_function [ 'stat_st_dev' => 'st_dev' ], [ _ptr ], _dev_t;
-attach_function [ 'stat_stat' => 'stat' ], [ _ptr, _str ], _int;
-attach_function [ 'stat_delete' => 'DESTROY' ], [ _ptr ], _void;
+custom_type opaque => stat => {
+  ffi_to_perl => sub {
+    bless \$_[0], 'Stat::FFI';
+  },
+  perl_to_ffi => sub {
+    ${$_[0]};
+  },
+};
+
+attach [ 'stat_new' => 'new' ],        ['string']          => stat   => '';
+attach [ 'stat_st_dev' => 'st_dev' ],  ['stat'],           => dev_t  => '$';
+attach [ 'stat_stat' => 'stat' ],      ['stat', 'string' ] => int    => '$$';
+attach [ 'stat_delete' => 'DESTROY' ], ['stat'],           => void   => '$';
 
 1;

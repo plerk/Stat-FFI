@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <ffi_util.h>
 
-FFI_UTIL_EXPORT struct stat *stat_new()
+FFI_UTIL_EXPORT struct stat *stat_new(const char *class)
 {
   return malloc(sizeof(struct stat));
 }
