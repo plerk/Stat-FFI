@@ -2,7 +2,6 @@ package Stat::FFI;
 
 use strict;
 use warnings;
-use base qw( FFI::Raw::Ptr );
 use FFI::Platypus::Declare;
 use FFI::Util qw( locate_module_share_lib );
 
@@ -17,10 +16,10 @@ lib do {
 };
 
 custom_type opaque => stat => {
-  ffi_to_perl => sub {
+  native_to_perl => sub {
     bless \$_[0], 'Stat::FFI';
   },
-  perl_to_ffi => sub {
+  perl_to_native => sub {
     ${$_[0]};
   },
 };
