@@ -15,7 +15,7 @@ lib do {
   $file;
 };
 
-custom_type opaque => stat => {
+custom_type stat => {
   native_to_perl => sub {
     bless \$_[0], 'Stat::FFI';
   },
