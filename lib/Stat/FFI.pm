@@ -3,17 +3,9 @@ package Stat::FFI;
 use strict;
 use warnings;
 use FFI::Platypus::Declare;
-use FFI::Util qw( locate_module_share_lib );
 
 # ABSTRACT: FFI interface to stat function
 # VERSION
-
-lib do {
-  # fetch location of Stat/FFI.so created 
-  # by Module::Build::FFI at install
-  my $file = locate_module_share_lib();
-  $file;
-};
 
 custom_type stat => {
   native_to_perl => sub {
