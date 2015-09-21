@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.02      2015-09-21 04:42:30 -0400
   - Module::Build::FFI is an explicit configure prereq
     (as it should be)
 
